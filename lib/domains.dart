@@ -1,7 +1,7 @@
 // Development process
 class Process {
   String _name;
-  List<Step> _steps = new List<Step>();
+  List<DevelopStep> _steps = new List<DevelopStep>();
 
   // Constructor
   Process(this._name);
@@ -11,28 +11,47 @@ class Process {
 
   set name(String newName) => this._name = newName;
 
-  List<Step> get steps => this._steps;
+  List<DevelopStep> get steps => this._steps;
   
-  addStep(Step step) => this._steps.add(step);
+  addStep(DevelopStep step) => this._steps.add(step);
 
-  insertStep(Step step, int index) {
+  insertStep(DevelopStep step, int index) {
     if (index >= 0 && index < this._steps.length) {
       this._steps.insert(index, step);
     }
   }
   
-  removeStep(Step step) => this._steps.remove(step);
+  removeStep(DevelopStep step) => this._steps.remove(step);
+
+  Duration get duration {
+    Duration total = new Duration(seconds: 0);
+
+    steps.forEach((step) => total += step.duration);
+
+    return total;
+  }
+}
+
+enum StepType {
+  periordically,
+
+}
+
+enum TriggerNextType {
+  WAIT_FOR_CLICK,
+
+
 }
 
 // Development step
-class Step {
+class DevelopStep {
   String _name;
 
   String _notes = "";
 
-  Duration _duration = new Duration();
+  Duration _duration = new Duration(seconds: 0);
 
-  Step(this._name);
+  DevelopStep(this._name);
 
   String get name => this._name;
 

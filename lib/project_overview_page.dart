@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'domains.dart';
+import 'process_page.dart';
 
 class ProjectOverviewPage extends StatefulWidget {
   ProjectOverviewPage({Key key, this.title}) : super(key: key);
@@ -19,8 +20,14 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
   void initState() {
     super.initState();
 
-    var process1 = new Process("C41 Film Development");
-    var process2 = new Process("E6 Film Development");
+    var process1 = Process("C41 Film Development");
+
+    process1.addStep(DevelopStep("Pre-soak"));
+    process1.addStep(DevelopStep("Develop"));
+    process1.addStep(DevelopStep("Blix"));
+    process1.addStep(DevelopStep("Stabilizer"));
+
+    var process2 = Process("E6 Film Development");
 
     processes.add(process1);
     processes.add(process2);
@@ -33,31 +40,59 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: new ListView.builder(
+      body: ListView.builder(
           itemCount: processes.length,
           itemBuilder: (BuildContext ctxt, int index) {
             var process = processes[index];
-            return new Card(
-              margin: new EdgeInsets.all(10.0),
-              child: Container(
-                decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
-                child: ListTile(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                  title: Text(
-                    process.name,
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  leading: Icon(Icons.camera, color: Colors.blue)
-                )
+            return InkWell(
+              onTap: () => _onProcessCardPressed(process),
+              child: Card(
+                margin: EdgeInsets.all(10.0),
+                child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.lightBlue,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black,
+                          blurRadius: 5.0,
+                        ),
+                      ],
+                    ),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 10.0),
+                      title: Text(
+                        process.name,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      leading: Icon(Icons.camera, color: Colors.white),
+                      subtitle: Text(
+                        process.duration.toString(),
+                        style: TextStyle(
+                          color: Colors.white
+                        )
+                      ),
+                    )
+                ),
               ),
             );
           }),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: _onAddNewProcess,
         tooltip: 'Add new process',
         child: Icon(Icons.add),
       ),
     );
   }
 
+
+  void _onAddNewProcess() {
+  }
+
+  void _onProcessCardPressed(Process process) {
+    Navigator.push(context, new MaterialPageRoute(builder: (ctx) {
+      return new ProcessDetailedPage(process: process);
+    }));
+  }
 }

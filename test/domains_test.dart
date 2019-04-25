@@ -13,15 +13,15 @@ void main() {
 
     expect("C41 New", process.name);
 
-    var step1 = new Step("develop");
-    var step2 = new Step("blix");
+    var step1 = new DevelopStep("develop");
+    var step2 = new DevelopStep("blix");
 
     process.addStep(step1);
     process.addStep(step2);
 
     expect(2, process.steps.length);
 
-    var step3 = new Step("stabilizer");
+    var step3 = new DevelopStep("stabilizer");
     process.insertStep(step3, 0);
 
     expect(3, process.steps.length);
