@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:develop_it/domains.dart';
+import 'counting_down_page.dart';
 
 class ProcessDetailedPage extends StatefulWidget {
 
@@ -36,7 +37,7 @@ class _ProcessDetailedPageState extends State<ProcessDetailedPage> {
           )
         ],
       ),
-      body: new ListView.builder(
+      body: ListView.builder(
         itemCount: _process.steps.length,
           itemBuilder: (BuildContext ctxt, int index) {
             var step = _process.steps[index];
@@ -89,5 +90,10 @@ class _ProcessDetailedPageState extends State<ProcessDetailedPage> {
   void _onAddNewStep() {
   }
 
-  void _onStartTimer() {}
+  void _onStartTimer() {
+    Navigator.push(context, new MaterialPageRoute(builder: (ctx) {
+      return CountingDownPage(theProcess: this._process);
+    }));
+  }
+
 }
