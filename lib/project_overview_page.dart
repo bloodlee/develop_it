@@ -35,7 +35,6 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -92,7 +91,7 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
 
   void _onProcessCardPressed(Process process) {
     Navigator.push(context, new MaterialPageRoute(builder: (ctx) {
-      return new ProcessDetailedPage(process: process);
+      return ProcessDetailedPage(process: process);
     }));
   }
 }

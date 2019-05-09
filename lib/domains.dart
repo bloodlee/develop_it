@@ -24,7 +24,7 @@ class Process {
   removeStep(DevelopStep step) => this._steps.remove(step);
 
   Duration get duration {
-    Duration total = new Duration(seconds: 0);
+    Duration total = Duration(seconds: 0);
 
     steps.forEach((step) => total += step.duration);
 
@@ -49,7 +49,7 @@ class DevelopStep {
 
   String _notes = "";
 
-  Duration _duration = new Duration(seconds: 0);
+  Duration _duration = Duration(seconds: 10);
 
   DevelopStep(this._name);
 
